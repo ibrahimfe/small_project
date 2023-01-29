@@ -30,8 +30,7 @@ This project is ready to be deployed.
 
 ## Built With
 
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
+- [Python](https://python.org)
 
 ## Contributing
 
