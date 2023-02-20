@@ -1,58 +1,60 @@
 import random
-import sys
+import os
 
-print ("ROCK, PAPER, SCISSOR")
-wins  = 0
-draws = 0
-losses = 0
+def pilihan_user():
+    user_choice = input("Pilih antara kertas, gunting, atau batu   : ").lower()
+    while user_choice not in ["kertas", "gunting", "batu"]:
+        print("Pilihan mu tidak ada di dalam list, silahkan pilih kembali")
+        user_choice = input("Pilih antara kertas, gunting, atau batu    : ").lower()
+    return user_choice
 
-while True:
-    print("| %s Wins | %s Losses | %s Draws |" %(wins, losses, draws))
-    print("Pilih salah satu : | (r)ock | (p)aper | (s)cissor | (q)uit |")
+def pilihan_computer():
+    computer_choice = random.choice(["kertas", "gunting", "batu"])
+    return computer_choice
+
+def tentukan_pemenang(user_choice, computer_choice):
+    if user_choice == computer_choice:
+        return "draws"
+    elif user_choice == "kertas":
+        if computer_choice == "gunting":
+            return "loss"
+        else:
+            return "wins"
+    elif user_choice == "gunting":
+        if computer_choice == "kertas":
+            return "wins"
+        else:
+            return "loss"
+    elif user_choice == "batu":
+        if computer_choice == "gunting":
+            return "wins"
+        else:
+            return "loss"
+
+def play_game():
+    wins = 0
+    draws = 0
+    losses = 0
+    
     while True:
-        player_move = input()
-        if player_move == 'q':
-            sys.exit()
-        elif player_move == 'r' or player_move == 'p' or player_move == 's':
-            break
-        print("Ketik salah satu dari | r | p | s | q |")
-    
-    if player_move == 'r':
-        print("Rock VS ...")
-    elif player_move == 's':
-        print("Scissor VS ...")
-    elif player_move == 'p':
-        print("Paper VS ...")
+        os.system("clear")        
+        user_choice = pilihan_user()
+        computer_choice = pilihan_computer()
         
-    computer_move = random.randint(1,3)
-    if computer_move == 1:
-        computer_move = 'r'
-        print("Rock")
-    elif computer_move == 2:
-        computer_move = 'p'
-        print("Paper")
-    elif computer_move == 3:
-        computer_move = 's'
-        print("Scissor")
-    
-    if player_move == computer_move:
-        print("It is a Tie!")
-        draws = draws + 1
-    elif player_move == 'r' and computer_move == 's':
-        print("You Win!!")
-        wins = wins + 1
-    elif player_move == 'r' and computer_move == 'p':
-        print("You Lose!!")
-        losses = losses + 1
-    elif player_move == 'p' and computer_move == 'r':
-        print("You Win!!")
-        wins = wins + 1
-    elif player_move == 'p' and computer_move == 's':
-        print("You Lose!!")
-        losses = losses + 1
-    elif player_move == 's' and computer_move == 'p':
-        print("You Win!!")
-        wins = wins + 1
-    elif player_move == 's' and computer_move == 'r':
-        print("You Lose!!")
-        losses = losses + 1
+        print(f"Kamu memilih {user_choice} dan Komputer memilih {computer_choice}")
+        hasil = tentukan_pemenang(user_choice, computer_choice)
+        if hasil == "wins":
+            print("Kamu Menang!")
+            wins += 1
+        elif hasil == "draws":
+            print("Hasilnya adalah seri!")
+            draws += 1
+        else:
+            print("Kamu kalah!")
+            losses += 1
+        print(f"| Wins {wins} | Draws {draws} | Losses {losses}")
+        play_again = input("Kamu mau main lagi? (y/n)   : ")
+        if play_again != "y":
+            break
+
+play_game()
