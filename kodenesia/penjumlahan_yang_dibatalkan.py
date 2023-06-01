@@ -2,13 +2,12 @@ import unittest
 
 
 def false_sum(string):
-    text = string.split()
     total, temp = 0, 0
-    for kaka in text:
-        if kaka != "B":
-            temp = int(kaka)
+    for x in string.split():
+        if x != "B":
+            temp = int(x)
             total += temp
-        if kaka == "B":
+        else:
             total -= temp
     return total
 
